@@ -1,4 +1,4 @@
-# rslearn (C++)
+# rslearn-ML (C++)
 > A beginner-friendly machine learning library that automates preprocessing, training, and evaluation backed by rslearn-lib
 
 ## Currently Building Assets of Library, like
