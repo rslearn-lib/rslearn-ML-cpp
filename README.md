@@ -2,7 +2,7 @@
 > A beginner-friendly machine learning library that automates preprocessing, training, and evaluation backed by rslearn-lib
 
 ## Currently Building Assets of Library, like
-* Tensor (numpy array)
+* Tensor (numpy array) - Done (1D & 2D) | for tutorial visit `learn/learn_tensors.cpp` | Source Code `assets/numpy/tensor.hpp`
 * dot production
 * shape validation
 * API design
