@@ -94,7 +94,6 @@ Core Data Structure for Data Processing and mainly for `X`
 template <typename T>
 class tensor1D {
     private:
-
         std::vector<T> data;
         
     public:
@@ -106,6 +105,7 @@ class tensor1D {
             shape[0] = 1;
         }
 
+        tensor1D() = default;
        
         tensor1D(std::initializer_list<T> list): data(list) {
             if (data.empty()){
@@ -136,6 +136,11 @@ class tensor1D {
 
         size_t size() const{
             return shape[0];
+        }
+
+        void add(T val){
+            data.push_back(val);
+            shape[0]++;
         }
 };
 
