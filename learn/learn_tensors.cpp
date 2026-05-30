@@ -9,6 +9,10 @@
 #include <vector>
 
 // FOR USER IMPORT "assets/assets.hpp"
+// NOTE: NOT FOR BEGINNERS, Beginners visit it's Python Verison to Contribute
+// Minimum C++ Experience Needed ~1 year
+// Python Version: https://github.com/rslearn-lib/rslearn-ML-py
+// Website for it: https://rslearn-py.rslearnlib.workers.dev
 
 
 // COMPILE & RUN GUIDE
