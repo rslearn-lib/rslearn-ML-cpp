@@ -61,7 +61,7 @@ int main(){
     tens3.printData();
 
     // std::cout << tens.shape() << std::endl;
-    std::vector<int> shape = tens.shape;
+    std::vector<size_t> shape = tens.shape;
     std::cout << shape[0] << std::endl;
     std::cout << tens.size() << std::endl;
     std::cout << tens.at(1) << std::endl;

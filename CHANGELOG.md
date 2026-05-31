@@ -1,19 +1,18 @@
 # CHANGELOGS
 
 ## Feat
-PR - feat/tensors
+PR - feat/transpose
 
-* Tensor 1D and 2D both
+* Tranpose Only For 2D Tensors
 
 ## Source Code
 
-* `assets/numpy/tensor.hpp`
+* `assets/numpy/T.hpp`
 
 ## How to Use
 
-* `learn/learn_tensors.cpp`
+* `learn/learn_T.cpp`
 
 # NOTE
-* > Documantation for it in source code header  
 * > Import - assets/assets.hpp   
 * > Import for Colaburators - ../assets/assets.hpp  

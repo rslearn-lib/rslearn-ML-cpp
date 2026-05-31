@@ -6,6 +6,16 @@
 * dot production
 * shape validation
 * API design
+* Much More, idk why
+
+# NOTE
+> Currently not for use, use on your own risk :) 
+
+# For Contributors
+
+- Visit `/learn` before modifying core code.
+- The tutorials exist for a reason.
+- Please don't break anything :(
 
 # Author
 ItzRustam

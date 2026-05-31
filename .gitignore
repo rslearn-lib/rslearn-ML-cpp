@@ -1,3 +1,6 @@
 main.cpp
 main
 tesn
+other.cpp
+*.exe
+*.out

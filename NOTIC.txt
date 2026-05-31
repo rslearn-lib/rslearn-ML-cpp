@@ -1,0 +1,38 @@
+/*
+  rslearn-lib / rslearn-ML
+   Copyright (c) 2026
+   All rights reserved (yes, even that bug you just found).
+
+  Licensed under BSD-3-Clause
+  (read LICENSE file… or don’t, I’m not your boss)
+*/
+
+This Library is Tested on GCC G++ COMPILER `16.1.1` and C++ 23
+
+
+Compiler Compatibility Matrix (a.k.a. "it should work")
+--------------------------------------------------------
+
+C++ Standards:
+  - C++12 → C++23 (idk why and DONT ASK, USE C++23 :D)
+
+GCC Versions:
+  - Minimum: GCC 14 (below that = ancient civilization)
+  - Recommended: GCC 15 / 16 (where bugs are slightly more modern)
+
+Operating Systems:
+  - Linux (Fedora / Arch / openSUSE / basically anything not trying to fight you & Don't ask why I uses this much Linux Distro daily, . I don't know either.)
+  - Windows 11+ (yes it runs, don’t ask how, idk)
+  - macOS (untested… good luck soldier :D, Please tell me if it works :D)
+
+Notes:
+  - If it crashes, it's either a bug or “undefined feature”
+  - If it works, don't touch it
+  - If it compiles first try, check your environment (something is suspicious)
+
+Summary:
+  - Compiler     : GCC/G++ 15+
+  - C++ Version  : C++23
+
+  - Why?
+  - 'Cause I said so. :D
