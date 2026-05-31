@@ -98,7 +98,7 @@ class tensor1D {
         
     public:
         int ndim = 1;
-        std::vector<int> shape = {0, 0};
+        std::vector<size_t> shape = {0, 0};
 
         tensor1D(T value){
             data.push_back(value);
@@ -106,10 +106,15 @@ class tensor1D {
         }
 
         tensor1D() = default;
+
+        tensor1D(std::vector<T> vec_input){
+            data = vec_input;
+            shape = {vec_input.size(), 0};
+        }
        
         tensor1D(std::initializer_list<T> list): data(list) {
             if (data.empty()){
-                throw std::invalid_argument("Tensor can't be empty");
+                throw std::invalid_argument("Seriously? An empty array? Try tensor1D<Dtype> tensor() instead.");
             }
             shape[0] = data.size();
         } // Direct Case 
@@ -126,9 +131,13 @@ class tensor1D {
             std::cout << std::endl;
         }
 
+        void printShape() const{
+            std::cout << "Rows: " << shape[0];
+        }
+
         T at(size_t index) const{
             if (index >= shape[0]){
-                throw std::out_of_range("Index Out Of Range");
+                throw std::out_of_range("Requested index is out of territory :)");
             }
 
             return data.at(index);
@@ -155,24 +164,24 @@ class tensor2D{
         std::vector<std::vector<T>> data;
     
     public:
-        std::vector<int> shape;
+        std::vector<size_t> shape;
         int ndim = 2; 
 
         // Case like tensor2D<int> data({{1, 2}, {3, 4}});
         tensor2D(std::initializer_list<std::vector<T>> list): data(list){
             if (data.empty()){
-                throw std::invalid_argument("Tensor can't be empty");
+                throw std::invalid_argument("Tensor can't be empty, it needs Job!");
             }
-            int rows = data.size();
-            int col = data[0].size();
+            size_t rows = data.size();
+            size_t col = data[0].size();
             shape = {rows, col};
         }
 
         template <size_t ROWS, size_t COLS>
         tensor2D(const T (&rawArray)[ROWS][COLS]){
             shape = {
-                static_cast<int>(ROWS),
-                static_cast<int>(COLS)
+                static_cast<size_t>(ROWS),
+                static_cast<size_t>(COLS)
             };
             
             for(size_t i=0; i < ROWS; i++){
@@ -184,15 +193,26 @@ class tensor2D{
 
         }
 
+        tensor2D(std::vector<std::vector<T>> vec_input){
+            data = vec_input;
+            shape = {vec_input.size(), vec_input[0].size()};
+
+        }
+
         T at(size_t row, size_t col) const{
             if(row >= shape[0] || col >= shape[1]){
-                throw std::out_of_range("Invalid row, col");
+                throw std::out_of_range("Something is suspicious, please check given row & col again.");
             }
             return data[row][col];
         }
 
         size_t size() const{
             return shape[0];
+        }
+
+        void printShape() const{
+            std::cout << "Rows: " << shape[0] << "\n";
+            std::cout << "Columns: " << shape[1] << "\n";
         }
 
         void printData() const{

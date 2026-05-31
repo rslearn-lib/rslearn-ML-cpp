@@ -18,3 +18,4 @@ tensors
 #include <iostream>
 #include "numpy/tensor.hpp"
 #include "numpy/dot_prod.hpp"
+#include "numpy/T.hpp"
