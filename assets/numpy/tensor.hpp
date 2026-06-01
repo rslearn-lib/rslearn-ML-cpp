@@ -157,14 +157,20 @@ class tensor1D {
             NOTE: with in_place = False it will just return new value
             and if in_place = True, then good luck sholdier Tensor just wiped out :)
             */
-            for(auto items : data){
-                total_sum += items;
+            if(shape[0] == 1){ // safety check really annoyed :(
+                total_sum = data[0];
+            }
+            else{
+                for(size_t item=0; item < shape[0]; item++){
+                    total_sum += data[item];
+                }
             }
             // True Case Tensor Just Gonna Wiped Out.
             if (in_place) {
                 data = {total_sum}; // tensor Data gone swapped with sum Oh, No!
                 // I Have to Clear Memory Otherwise people will not use it!!
                 data.shrink_to_fit(); // Done, Now people will use it :)
+                shape = {1, 0};
             }
             else{
                 // leave it
@@ -172,6 +178,7 @@ class tensor1D {
             // If user Care about Tensor then sum will be store in sum attribute and called by Tensor1D.sum but
             // please call it after sum() plssss!
         }
+
 
 };
 
