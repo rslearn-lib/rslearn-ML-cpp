@@ -1,18 +1,21 @@
 # CHANGELOGS
 
 ## Feat
-PR - feat/transpose
+PR - feat/sum
 
-* Tranpose Only For 2D Tensors
+* Sum Class for 1D and 2D Tensors
+* Sum Method for 1D and 2D Tensors
 
 ## Source Code
 
-* `assets/numpy/T.hpp`
+* `assets/numpy/maths.hpp`
+* `assets/numpy/tensor.hpp`
 
 ## How to Use
 
-* `learn/learn_T.cpp`
+* `learn/learn_sum.cpp`
 
 # NOTE
 * > Import - assets/assets.hpp   
 * > Import for Colaburators - ../assets/assets.hpp  
+* > Tutorial - learn/learn_sum.cpp

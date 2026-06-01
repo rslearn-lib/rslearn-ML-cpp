@@ -4,3 +4,4 @@ tesn
 other.cpp
 *.exe
 *.out
+.idea/

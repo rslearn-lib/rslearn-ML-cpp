@@ -95,10 +95,10 @@ template <typename T>
 class tensor1D {
     private:
         std::vector<T> data;
-        
     public:
         int ndim = 1;
         std::vector<size_t> shape = {0, 0};
+        T total_sum = 0; // Sum We Might use
 
         tensor1D(T value){
             data.push_back(value);
@@ -132,7 +132,7 @@ class tensor1D {
         }
 
         void printShape() const{
-            std::cout << "Rows: " << shape[0];
+            std::cout << "Size: " << shape[0] << std::endl;
         }
 
         T at(size_t index) const{
@@ -151,6 +151,35 @@ class tensor1D {
             data.push_back(val);
             shape[0]++;
         }
+
+        void sum(bool in_place=false){
+            /*
+            NOTE: with in_place = False it will just return new value
+            and if in_place = True, then good luck sholdier Tensor just wiped out :)
+            */
+            if(shape[0] == 1){ // safety check really annoyed :(
+                total_sum = data[0];
+            }
+            else{
+                for(size_t item=0; item < shape[0]; item++){
+                    total_sum += data[item];
+                }
+            }
+            // True Case Tensor Just Gonna Wiped Out.
+            if (in_place) {
+                data = {total_sum}; // tensor Data gone swapped with sum Oh, No!
+                // I Have to Clear Memory Otherwise people will not use it!!
+                data.shrink_to_fit(); // Done, Now people will use it :)
+                shape = {1, 0};
+            }
+            else{
+                // leave it
+            }
+            // If user Care about Tensor then sum will be store in sum attribute and called by Tensor1D.sum but
+            // please call it after sum() plssss!
+        }
+
+
 };
 
 // Tensor 2D class for rslearn-ml for y and output data and normal processing
@@ -222,6 +251,82 @@ class tensor2D{
                 }
                 std::cout << "\n";
             }
+        }
+
+        tensor1D<size_t> sum(int axis=2){
+            /*
+            axis=2 then total sum, return 1 value tensor1D
+            axis=0 then column wise sum usually return tensor1D with total column size
+            axis=1 then row wise sum usually return tensor1D with total row size, Lecture = learn/learn_sum.cpp I swear, Its not boring :D
+            */
+            if(axis == 2){
+                // Let's use Math 
+                size_t total_sum = 0;
+                // Yeah, Ik Im not good at DSA but It's O(n^2) yeah ik;
+                for(size_t row=0; row < shape[0]; row++){
+                    for(size_t col=0; col < shape[1]; col++){
+                        total_sum += data[row][col];
+                    }
+                }
+
+                // converting to our Trusty Tensor `Tensor1D` :)
+                tensor1D<size_t> output(total_sum);
+                return output;
+            } 
+            else if (axis == 0){
+                /* Column-Wise */
+                /*
+                Lemme Explain it,
+                {
+                {1, 2, 3},
+                {4, 5, 6}
+                }
+
+                output = {5, 7, 9} why, 'cause 1+4 = 5; 2+5 = 7; 3+6 = 9; 
+                Ik you all already how this output came, but I like Teaching :)
+
+                */
+               tensor1D<size_t> outputs;
+
+                for(size_t col=0; col < shape[1]; ++col){
+                    size_t total_sum = 0;
+                    for(size_t row=0; row < shape[0]; ++row){
+                        total_sum += data[row][col]; // column wise logic
+                    }
+                    outputs.add(total_sum);
+                }
+
+                // returning
+                return outputs;
+            } 
+            else if (axis == 1){
+                /*
+                Row-wise sum
+                {
+                {1, 2, 3},
+                {4, 5, 6}
+                }
+
+                output = {6, 15} Im not gonna Explain it.
+                */
+
+                tensor1D<size_t> outputs;
+                // I just yoinked it from above :)
+                for(size_t row=0; row < shape[0]; row++){
+                    size_t total_sum = 0;
+                    for(size_t col=0; col < shape[1]; col++){
+                        total_sum += data[row][col]; // Row wise logic
+                    }
+                    outputs.add(total_sum);
+                }
+
+                return outputs; // go Homie
+            }
+
+            tensor1D<size_t> outputs;
+
+            return outputs; //Empty
+
         }
 
 };
