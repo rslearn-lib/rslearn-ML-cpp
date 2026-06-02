@@ -35,7 +35,7 @@ Yeah, ik We have to think too much! :(
 template <typename T>
 class sum{
     public:
-        tensor1D<size_t> outputs;
+        tensor1D<T> outputs;
         // Case #2 First It's Simple so, don't ask why It took 1 hour idk. PAIN...
         sum(tensor1D<T>* data, bool in_place=false){
             /*
@@ -48,7 +48,7 @@ class sum{
 
             if (data == nullptr) return; // idk why i do this, I found it on best practices, Huh too much.
 
-            size_t total_sum = 0;
+            T total_sum = 0;
             
             // total_sum = data->total_sum;
 
@@ -64,7 +64,7 @@ class sum{
             }
 
         }
-
+        // I think It's hard It took just 5 mins to be Done!!
         sum(tensor2D<T> data, int axis=2){
             if(axis == 2){
                 outputs = data.sum(); //default = 2
@@ -96,7 +96,7 @@ class sum{
                 output = {6, 15}
                 */
 
-                outputs = data.sum(1);
+                outputs = data.sum(1); //Ez
             }
         }
 };

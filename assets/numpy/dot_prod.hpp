@@ -35,40 +35,40 @@ class dot{
         Constructor #1  
         --------------
         metrics: Tensor2D of T type, Mainly X.  
-            tensor2D<double> X({{0.1, 3.2, 10.0}, {23.4, 12.2, 10.0}}); // just pass thing like this
+            tensor2D<float> X({{0.1, 3.2, 10.0}, {23.4, 12.2, 10.0}}); // just pass thing like this
         values: Tensor1D of T type, Mainly weights and outputs.  
-            tensor1D<double> weights({10.2, 30.1, 1.3})
+            tensor1D<float> weights({10.2, 30.1, 1.3})
         
-        NOTE: total length of values must be equal to metrics' total column length.  
+        NOTE: total length of values must be equal to metrics total column length.  
 
         Returns
         -------
         output: with getOutput(),  
-            Return Type - Tensor1D  
+            Return Type - Tensor1D<T>    
 
         Constructor #2
         --------------
         targets: Tensor 1D of T type.
-            tensor1D<double> target({1.2, 0.1, 1.3})
+            tensor1D<float> target({1.2, 0.1, 1.3})
         values: Tensor 1D of T type.
-            tensor1D<double> weights({10.2, 30.1, 1.3})
+            tensor1D<float> weights({10.2, 30.1, 1.3}) use any Dtype float/double/int  
 
         NOTE: total length of values must be equal to target's total length.  
 
         Returns
         -------
         output: with getOutput(),  
-            Return Type - Tensor1D  
+            Return Type - Tensor1D<T>    
     
     
     For Whom
     --------
-    This is Only for Library Core, and Special if you wan't to contribute to library.  
+    This is Only for Library Base, and Special if you wan't to contribute to library.  
         
 
     */
     private:
-        tensor1D<double> output; // calculated output tensor
+        tensor1D<T> output; // calculated output tensor
 
     public:
     // For 2D x 1D Tensor metrics - Mainly For LinearRegression, LogisticRegression, Ridge, Lasso, ElasticNet
@@ -84,7 +84,7 @@ class dot{
 
         // O(n^2) Multiplication Algorithams (Fast 'cause of C++ :D)
         for(size_t row = 0; row < metrics_shape[0]; row++){
-            double calcu = 0;
+            T calcu = 0;
             for(size_t col = 0; col < metrics_shape[1]; col++){
                 calcu += metrics.at(row, col) * values.at(col); // values
             }
@@ -100,7 +100,7 @@ class dot{
             throw std::out_of_range("Size Mismatch");
         }
         size_t len = targets.size();
-        double calcu = 0;
+        T calcu = 0;
 
         for(size_t i =0; i < len; i++){
             double calc = targets.at(i) * values.at(i);
@@ -111,7 +111,7 @@ class dot{
         output.add(calcu);
     }
 
-    tensor1D<double> getOutput() const{
+    tensor1D<T> getOutput() const{
         return output;
     }
 

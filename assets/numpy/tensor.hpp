@@ -27,6 +27,7 @@ Core Data Structure Used for `y` and dot production's output & `weights`
     importation
     -----------
     `#include "assets/numpy/tensor.hpp"`  
+    `#include "assets/assets.hpp"`  
 
     Initlization
     ------------
@@ -35,17 +36,20 @@ Core Data Structure Used for `y` and dot production's output & `weights`
 
     Things to Remember
     ------------------
-    * Use Dtype double for better gradient  
-    * Input array not be Empty or better way to use externel array like  
+    * Use Dtype double or float for better gradient  
+    * Input array not be Empty or better way to use externel array or vector like  
         `double arr[5] = {1.2, 1.0, 3.5, 10.0, 15.1}`  
         `tensor1D<double> tensor(arr)`  
     * array type and tensor type must be match double or int, double recommanded
+    * Float is default  
 
     Features/Methods/attribute  
     --------------------------
-    * shape (attribute) -> returns vector {rows, col}, usage `tensor.shape`  
-    * at (Method) Input(index) -> returns value at index, usage tensor.at(2)  
-    * size (Method) -> returns total length of tensor same as shape[0], usage `tensor.size()`  
+    * shape (attribute) -> returns vector {rows, col}, usage `tensor.shape`, Dtype=vector<size_t>  
+    * total_sum (attribute) -> return total sum of Tensor1D after sum(), usage `tensor.total_sum`, Dtype=T    
+    * at (Method) Input(index) -> returns value at index, usage tensor.at(2), Dtype=T    
+    * size (Method) -> returns total length of tensor same as shape[0], usage `tensor.size()`, Dtype=size_t    
+    * sum (Method) -> calculate sum of Tensor, usage tensor.sum(false), Dtype=Nope  
 
 Tensor 2D
 ---------
@@ -53,6 +57,7 @@ Core Data Structure for Data Processing and mainly for `X`
     Importation
     -----------
     `#include "assets/numpy/tensor.hpp"`  
+    `#include "assets/assets.hpp"`  
 
     Initlization
     ------------
@@ -64,14 +69,27 @@ Core Data Structure for Data Processing and mainly for `X`
     * No Empty Array for stability and clear control & Better Way to Write  
         `double arr[2][3] = {{1.0, 2.4, 3.3}, {4.2, 5.5, 6.1}}`  
         `tensor2D<double> tensor(arr)`  
-    * array type and tensor type must be match double or int, double recommanded
+    * array type and tensor type must be match double or float or int, float/double recommanded  
+    * float is default
 
     Features/Methods/attribute  
     --------------------------
-    * shape (attribute) -> returns vector {rows, col}, usage `tensor.shape`  
-    * at (Method) Input(row, col) -> returns value at index= (row*total_col) + col, usage tensor.at(1, 2)  
-    * size (Method) -> returns total length of tensor same as shape[0], usage `tensor.size()`  
+    * shape (attribute) -> returns vector {rows, col}, usage `tensor.shape`, dtype=vector<size_t>    
+    * at (Method) Input(row, col) -> returns value at index= (row*total_col) + col, usage tensor.at(1, 2), Dtype=T    
+    * size (Method) -> returns total length of tensor same as shape[0], usage `tensor.size()`, Dtype=size_t  
+    * sum (Method) Input(axis=2/0/1) -> return 1D tensor of sum according to axis, usage `tensor.sum(axis=0/1)`, Dtype=tensor<T>  
 
+    Axis
+    ----
+    axis 2 Default:
+            Total Sum 
+            {{1, 2}, {3, 4}} = 10
+    axis 0 Column-wise:
+            like 1+3, 2+4 = {4, 6}
+    axis 1 Row-wise:
+            like 1+2, 3+4 = {3, 7}
+    
+    Thank You!
 
 
 */
@@ -91,7 +109,7 @@ Core Data Structure for Data Processing and mainly for `X`
 // NOTE for contibuters: USE IT
 // and checkout Tensor 2D
 // rslearn-ML-cpp/assets/numpy/tensor.cpp - tensor1D
-template <typename T>
+template <typename T = float>
 class tensor1D {
     private:
         std::vector<T> data;
@@ -108,6 +126,10 @@ class tensor1D {
         tensor1D() = default;
 
         tensor1D(std::vector<T> vec_input){
+            if(vec_input.size() == 0){
+                throw std::out_of_range("Oh, Vector is Empty! Fill it with stuff.");
+            }
+
             data = vec_input;
             shape = {vec_input.size(), 0};
         }
@@ -121,6 +143,10 @@ class tensor1D {
 
         template <size_t N>
         tensor1D(const T (&rawArray)[N]) : data(rawArray, rawArray + N) {
+            if(data.size() == 0){
+                throw std::out_of_range("Vector is Empty, Nope!");
+            }
+
             shape[0] = data.size();
         }
 
@@ -174,6 +200,7 @@ class tensor1D {
             }
             else{
                 // leave it
+                // automaticly saved total_sum attribute
             }
             // If user Care about Tensor then sum will be store in sum attribute and called by Tensor1D.sum but
             // please call it after sum() plssss!
@@ -182,12 +209,12 @@ class tensor1D {
 
 };
 
-// Tensor 2D class for rslearn-ml for y and output data and normal processing
+// Tensor 2D class for rslearn-ml for X and Metrics data and normal processing.
 // this is also core Data Sctructure in this project
-// NOTE for contibuters: USE IT EVERYWHERE 'CAUSE WHOLE CLASSES USES IT
+// NOTE for contibuters: USE IT EVERYWHERE 'CAUSE WHOLE CLASSES USES IT too. btw
 // and checkout Tensor 1D 
 // rslearn-ML-cpp/assets/numpy/tensor.cpp -  tensor2D
-template <typename T>
+template <typename T=float>
 class tensor2D{
     private:
         std::vector<std::vector<T>> data;
@@ -223,6 +250,11 @@ class tensor2D{
         }
 
         tensor2D(std::vector<std::vector<T>> vec_input){
+            
+            if(vec_input.size() == 0){
+                throw std::out_of_range("Oh, Vector is Empty! Fill it with stuff.");
+            }
+
             data = vec_input;
             shape = {vec_input.size(), vec_input[0].size()};
 
@@ -253,7 +285,7 @@ class tensor2D{
             }
         }
 
-        tensor1D<size_t> sum(int axis=2){
+        tensor1D<T> sum(int axis=2){
             /*
             axis=2 then total sum, return 1 value tensor1D
             axis=0 then column wise sum usually return tensor1D with total column size
@@ -261,7 +293,7 @@ class tensor2D{
             */
             if(axis == 2){
                 // Let's use Math 
-                size_t total_sum = 0;
+                T total_sum = 0;
                 // Yeah, Ik Im not good at DSA but It's O(n^2) yeah ik;
                 for(size_t row=0; row < shape[0]; row++){
                     for(size_t col=0; col < shape[1]; col++){
@@ -270,7 +302,7 @@ class tensor2D{
                 }
 
                 // converting to our Trusty Tensor `Tensor1D` :)
-                tensor1D<size_t> output(total_sum);
+                tensor1D<T> output(total_sum);
                 return output;
             } 
             else if (axis == 0){
@@ -286,10 +318,10 @@ class tensor2D{
                 Ik you all already how this output came, but I like Teaching :)
 
                 */
-               tensor1D<size_t> outputs;
+               tensor1D<T> outputs;
 
                 for(size_t col=0; col < shape[1]; ++col){
-                    size_t total_sum = 0;
+                    T total_sum = 0;
                     for(size_t row=0; row < shape[0]; ++row){
                         total_sum += data[row][col]; // column wise logic
                     }
@@ -310,10 +342,10 @@ class tensor2D{
                 output = {6, 15} Im not gonna Explain it.
                 */
 
-                tensor1D<size_t> outputs;
+                tensor1D<T> outputs;
                 // I just yoinked it from above :)
                 for(size_t row=0; row < shape[0]; row++){
-                    size_t total_sum = 0;
+                    T total_sum = 0;
                     for(size_t col=0; col < shape[1]; col++){
                         total_sum += data[row][col]; // Row wise logic
                     }
@@ -323,7 +355,7 @@ class tensor2D{
                 return outputs; // go Homie
             }
 
-            tensor1D<size_t> outputs;
+            tensor1D<T> outputs;
 
             return outputs; //Empty
 
