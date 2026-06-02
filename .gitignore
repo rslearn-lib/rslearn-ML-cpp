@@ -5,3 +5,4 @@ other.cpp
 *.exe
 *.out
 .idea/
+*.csv

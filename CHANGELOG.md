@@ -1,21 +1,20 @@
 # CHANGELOGS
 
 ## Feat
-PR - feat/sum
+PR - fix/dtypes
 
-* Sum Class for 1D and 2D Tensors
-* Sum Method for 1D and 2D Tensors
+* Removed unnecessary size_t with T 
+* set float as Default dtype
 
 ## Source Code
 
 * `assets/numpy/maths.hpp`
 * `assets/numpy/tensor.hpp`
+* `assets/numpy/dot_prod.hpp`
 
 ## How to Use
 
-* `learn/learn_sum.cpp`
+* Updated `/learn` folder's files
 
 # NOTE
-* > Import - assets/assets.hpp   
-* > Import for Colaburators - ../assets/assets.hpp  
-* > Tutorial - learn/learn_sum.cpp
+* **`/learn` is currently paused, will be open after finishing Base**
