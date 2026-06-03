@@ -21,6 +21,11 @@ Tensor1D, in_place
 
 Yeah, ik We have to think too much! :(
 
+mean() :-
+It will also eat Tensors.
+
+Cases In it's class
+
 */
 
 #ifndef MATH_HPP
@@ -99,6 +104,106 @@ class sum{
                 outputs = data.sum(1); //Ez
             }
         }
+};
+
+// Mean for Tensors, 1D & 2D
+// Weight Support
+
+// return type - Tensor<float> kinda default
+
+template <typename T>
+class mean{
+    
+    // First Constructor
+    // Case #1, Tensor1D
+    // Case #2, Tensor2D, axis, default as you know 2!
+    
+    private:
+        tensor1D<float> output;
+
+    public:
+        
+
+        // Tensor1D - return float value
+
+        mean(tensor1D<T> tensor){
+            if(tensor.size() == 0){
+                throw std::out_of_range("Tensor is Nope!");
+            }
+
+            tensor.sum(); // Adding
+            T output_1D = tensor.total_sum;
+            
+
+            float mean_1D = static_cast<float>(output_1D)/tensor.size();
+
+            output.add(mean_1D);
+        }   
+
+        // Tensor2D return tensor1D<float>
+        mean(tensor2D<T> tensor, int axis=2){
+            if(axis==2){
+                
+                // Sum first
+                T sum_2D = tensor.sum().at(0);
+
+                // denominator - Fraction Time!!
+                std::vector<size_t> shape = tensor.shape;
+                int denom = shape[0] * shape[1]; // N*M = total Values
+
+                // mean - what did you mean? :D
+                float mean_2D = static_cast<float>(sum_2D)/ denom;
+
+                output.add(mean_2D);
+            }
+            else if(axis==0){
+                // sum as always
+                tensor1D<T> sum_2D = tensor.sum(0);
+
+                /*
+                Sum May Look Like this
+                [4, 6]
+
+                for 
+                [
+                    [1, 2],
+                    [3, 4]
+                ]
+
+                so divide them with? total Count Easy! and Total Count? Row!!!
+                */
+
+                size_t len = tensor.shape[0]; // rows len
+
+                for(size_t i=0; i<sum_2D.size(); i++){
+                    // DEVIDEEEE
+                    float devided = sum_2D.at(i)/static_cast<float>(len);
+                    output.add(devided);
+                }
+
+            }
+            else if(axis=1){
+                // SUMMMM
+                tensor1D<T> sum_2D = tensor.sum(1);
+
+
+                size_t denom = tensor.shape[1]; // total column kinda :)
+
+                for(size_t i=0; i<sum_2D.size(); i++){
+                    float devided = sum_2D.at(i)/static_cast<float>(denom);
+                    output.add(devided);
+                }
+            }
+            else{
+                throw std::out_of_range("NOPE, You Entered Wrong axis!");
+            }
+
+        }
+
+        tensor1D<float> getValue() const{
+            return output;
+        }
+        
 };
 
 #endif
