@@ -1,7 +1,7 @@
 # CHANGELOGS
 
 ## Feat
-PR - fix/mean
+PR - feat/mean
 
 * Return Average of Tensors
 * axis support in Tensors2D mean
