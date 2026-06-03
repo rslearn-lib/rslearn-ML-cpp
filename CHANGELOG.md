@@ -1,20 +1,15 @@
 # CHANGELOGS
 
 ## Feat
-PR - fix/dtypes
+PR - fix/mean
 
-* Removed unnecessary size_t with T 
-* set float as Default dtype
+* Return Average of Tensors
+* axis support in Tensors2D mean
 
 ## Source Code
 
 * `assets/numpy/maths.hpp`
-* `assets/numpy/tensor.hpp`
-* `assets/numpy/dot_prod.hpp`
 
 ## How to Use
 
-* Updated `/learn` folder's files
-
-# NOTE
-* **`/learn` is currently paused, will be open after finishing Base**
+* `/learn` is paused currently 'cause of daily something update

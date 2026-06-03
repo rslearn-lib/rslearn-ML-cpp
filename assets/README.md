@@ -29,6 +29,11 @@ same as Tensor.sum()
 - Tensor2D, with axis (also in Tensor.sum)
 - Tensor1D, with in_place(also in Tensor.sum)
 
+### Mean
+It just Return Average of Tensor Based on axis (In 2D)
+- Tensor1D
+- Tensor2D, with axis (Default=2)
+
 **Source Code: /assets/numpy/maths.hpp**
 
 ## How to Use?
