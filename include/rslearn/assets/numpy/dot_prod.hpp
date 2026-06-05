@@ -74,7 +74,7 @@ class dot{
     // For 2D x 1D Tensor metrics - Mainly For LinearRegression, LogisticRegression, Ridge, Lasso, ElasticNet
     dot(tensor2D<T> metrics, tensor1D<T> values){
 
-        std::vector<int> metrics_shape = metrics.shape; // shape of metrics
+        std::vector<size_t> metrics_shape = metrics.shape; // shape of metrics
         size_t values_len = values.size(); // length of 1D metrics
 
         // safty check to save memory leak if Index mismatch like metric's cols == length of 1D values

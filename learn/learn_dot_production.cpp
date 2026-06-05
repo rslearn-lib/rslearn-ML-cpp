@@ -16,7 +16,7 @@ This File Contains
 
 
 #include <iostream>
-#include "../assets/assets.hpp"
+#include "../include/rslearn/assets/assets.hpp"
 #include <vector>
 
 // FOR USER IMPORT "assets/assets.hpp"
