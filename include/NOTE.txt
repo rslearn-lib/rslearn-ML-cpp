@@ -1,0 +1,32 @@
+/*
+* Copyright (c) 2026, rslearn-lib, rslearn-ML
+* All rights reserved.
+* (Full BSD-3-Clause license text here)
+*/
+
+SOURCE CODE FOLDER FOR RSLEARN-CPP
+
+Installation
+===============
+For Installation just copy include/rslearn folder to /usr/include 
+and Yeah in Linux idk how to do this in Windows 'cause I didn't used it much :D 
+
+Command
+=========
+
+step #1
+---------
+Copy GitHub repo
+git clone https://github.com/rslearn-lib/rslearn-ML-cpp
+
+step #2
+---------
+Copy include/rslearn to /usr/include
+
+sudo cp rslearn-ML-cpp/include/rslearn /usr/include
+
+you can just move by replacing cp with mv 
+
+step #3
+----------
+Train ML Model in C++ Yuhu!
