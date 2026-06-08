@@ -22,7 +22,7 @@ converted X, y to Tensor
 #include <cctype>
 #include <utility>
 
-#include "../assets.hpp" // I wrote it :) 'cause chatGPT don't know I have a Tensor
+#include "../numpy/tensor.hpp"// // I wrote it :) 'cause chatGPT don't know I have a Tensor
 
 std::string trim(const std::string &s) {
     int l = 0;

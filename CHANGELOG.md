@@ -1,14 +1,18 @@
 # CHANGELOGS
 
 ## Feat
-PR - fix/mean
+PR - feat/linear_regression_basic
 
-* Return Average of Tensors
-* axis support in Tensors2D mean
+* Substact Tensors
+* Add values to tensor's each value (scaler only)
+* Subtract values to tensor's each value (also scaler only)
+* Basic Training loop for Multi-LinearRegression
+* Supported Features for LinearRegression
 
 ## Source Code
 
-* `assets/numpy/maths.hpp`
+* `include/rslearn/assets/numpy/*`
+* `include/rslearn/linear_model/linear_regression.hpp`
 
 ## How to Use
 
