@@ -18,8 +18,7 @@ This File Contains
 #define DOT_PROD_HPP
 
 #include <iostream>
-#include "../assets.hpp" // for same ecosystem
-// we can call #include "tensor.hpp" also
+#include "tensor.hpp" // for same ecosystem
 
 
 template <typename T>

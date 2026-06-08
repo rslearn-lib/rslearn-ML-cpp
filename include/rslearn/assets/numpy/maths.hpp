@@ -34,7 +34,7 @@ Cases In it's class
 #pragma once
 
 #include <iostream>
-#include "../assets.hpp"
+#include "tensor.hpp"
 #include <vector>
 
 template <typename T>
@@ -205,5 +205,23 @@ class mean{
         }
         
 };
+
+// Only For linear_model
+tensor1D<float> sub_tensor(tensor1D<float> pred, tensor1D<float> y_true){
+    if(pred.shape[0] != y_true.shape[0]){
+        throw std::out_of_range("Internel Error: y_true & pred Shape Mismatch Found");
+    }
+
+    tensor1D<float> output;
+
+    for(size_t i=0; i<pred.shape[0]; i++){
+        float val = y_true.at(i) - pred.at(i);
+        output.add(val);
+    }
+
+    return output;
+
+}
+
 
 #endif

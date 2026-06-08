@@ -206,6 +206,39 @@ class tensor1D {
             // please call it after sum() plssss!
         }
 
+        void add_val(T value){
+            // It will add value to each Value of Tensor1D, and Yeah It is specially for LinearRegression
+
+            // LOGICCC
+            for(size_t i=0; i<shape[0]; i++){
+                data[i] += value;
+            }
+        }
+
+        void subtract(T value){
+            // Subract Value from value to each value to Tensor1D
+
+            for(size_t i=0; i<shape[0]; i++){
+                data[i] -= value;
+            }
+        }
+
+        void multiply(T value){
+            // Multiplication, just Not much Yeah just... PAINNNN
+
+            for(size_t i=0; i<shape[0]; i++){
+                data[i] *= value;
+            }
+
+            // And Yeah I copied this from above and just changed -= with *= Smart :)
+        }
+
+        void square(){
+            // square each value
+            for(size_t i=0; i<shape[0]; i++){
+                data[i] *= data[i];
+            }
+        }
 
 };
 
