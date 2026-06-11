@@ -255,7 +255,7 @@ tensor1D<float> _diff_calculate_std(tensor2D<float>X, tensor1D<float> X_mean){
 }
 
 
-// Column-Wise STD Calculator For Linear Regression and Logistic Regression and Based
+// Column-Wise STD Calculator For Scalers
 tensor1D<float> calculateSTD(tensor2D<float> X){
     mean<float> calculate(X, 0);
     tensor1D<float> X_mean = calculate.getValue();
