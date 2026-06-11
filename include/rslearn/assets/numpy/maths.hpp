@@ -36,6 +36,7 @@ Cases In it's class
 #include <iostream>
 #include "tensor.hpp"
 #include <vector>
+#include <cmath>
 
 template <typename T>
 class sum{
@@ -222,6 +223,51 @@ tensor1D<float> sub_tensor(tensor1D<float> pred, tensor1D<float> y_true){
     return output;
 
 }
+
+tensor1D<float> _diff_calculate_std(tensor2D<float>X, tensor1D<float> X_mean){
+    tensor1D<float> final_output;
+
+    std::vector<size_t> shape = X.shape;
+
+    // Safety Check
+    if(shape[1] != X_mean.size()){
+        throw std::out_of_range("Invalid Shape Found! Oh Oh?"); // Hope this will never happens
+    }
+
+    for(size_t col=0; col<shape[1]; ++col){
+        tensor1D<double> diffrencive_output;
+        for(size_t row=0; row<shape[0]; ++row){
+            float sub = X.at(row, col) - X_mean.at(col);
+            double sub_sqr = sub * sub;
+            diffrencive_output.add(sub_sqr);
+        }
+
+        mean<double> varience_output(diffrencive_output);
+        float varience = varience_output.getValue().at(0); // varience Only!
+
+        float sqrt_varience = std::sqrt(varience); // square root
+
+        final_output.add(sqrt_varience);
+    }
+
+    return final_output;
+
+}
+
+
+// Column-Wise STD Calculator For Linear Regression and Logistic Regression and Based
+tensor1D<float> calculateSTD(tensor2D<float> X){
+    mean<float> calculate(X, 0);
+    tensor1D<float> X_mean = calculate.getValue();
+    X_mean.printData();
+
+    tensor1D<float> std_output = _diff_calculate_std(X, X_mean);
+
+    return std_output;
+}
+
+
+
 
 
 #endif

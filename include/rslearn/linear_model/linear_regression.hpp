@@ -66,7 +66,7 @@ class LinearRegression{
         tensor1D<float> fitted_weights;
         float fitted_bias;
 
-        void fit(tensor2D<float> X, tensor1D<float> y, float min_loss=0.2, int max_itr=150, float lr = 0.0000001f){
+        void fit(tensor2D<float> X, tensor1D<float> y, float min_loss=0.2, int max_itr=1500, float lr = 0.0000001f){
 
             if(y.shape[0] == 0){
                 throw std::out_of_range("Y is Completely Nope!");
@@ -103,29 +103,12 @@ class LinearRegression{
 
                 float db = return_db(loss, fitted_shape[0]);
 
-                std::cout << "DW: " << std::endl;
-                dw.printData();
-
-                std::cout << "DB: " << db << std::endl;
-
                 dw.multiply(lr);
                 
                 weights = sub_tensor(dw, weights);
                 bias -= lr * db;
 
-                
-
-                weights.printData();
-                std::cout << "Bias: " << bias << std::endl;
-                printf("PREED\n");
-                pred.printData();
-                printf("MSE ERROR %f\n", mse_error);
-                printf("LOSSSS\n");
-                loss.printData();
-
-
                 iteration++;
-
             }
 
             fitted_weights = weights;
