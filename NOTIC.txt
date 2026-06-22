@@ -21,7 +21,7 @@ GCC Versions:
   - Recommended: GCC 15 / 16 (where bugs are slightly more modern)
 
 Operating Systems:
-  - Linux (Fedora / Arch / openSUSE / basically anything not trying to fight you & Don't ask why I uses this much Linux Distro daily, . I don't know either.)
+  - Linux (Fedora / Arch / openSUSE / basically anything not trying to fight you & Don't ask why I uses this much Linux Distro daily, I don't know either.)
   - Windows 11+ (yes it runs, don’t ask how, idk)
   - macOS (untested… good luck soldier :D, Please tell me if it works :D)
 
