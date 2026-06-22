@@ -15,12 +15,13 @@
 #include <string>
 #include <vector> // just in case 
 #include "../assets/assets.hpp"
+#include "../base/_base.cpp"
 
 class LinearRegression{
     private:
         bool _fitted = false;
         std::string type = "regression";
-        tensor1D<size_t> fitted_shape;
+        std::vector<size_t> fitted_shape;
     
         tensor1D<float> random_weight(size_t n_features){
             tensor1D<float> output;
@@ -66,7 +67,7 @@ class LinearRegression{
         tensor1D<float> fitted_weights;
         float fitted_bias;
 
-        void fit(tensor2D<float> X, tensor1D<float> y, float min_loss=0.2, int max_itr=1500, float lr = 0.0000001f){
+        void fit(tensor2D<float> X, tensor1D<float> y, float min_loss=0.2, int max_itr=1500, float lr = 0.01f){
 
             if(y.shape[0] == 0){
                 throw std::out_of_range("Y is Completely Nope!");
@@ -77,7 +78,7 @@ class LinearRegression{
                 throw std::out_of_range("Shape Mismatch, have you used added extra samples or labels? check those again!");
             }
 
-            std::vector<size_t> fitted_shape = X.shape;
+            fitted_shape = X.shape;
 
             tensor1D<float> weights = random_weight(fitted_shape[1]);
             float bias = 0.2;
@@ -113,9 +114,31 @@ class LinearRegression{
 
             fitted_weights = weights;
             fitted_bias = bias;
+            weights.printData();
+            std::cout << bias << "\n";
 
-            std::cout << "Trained !" << std::endl;
+            // std::cout << "Trained !" << std::endl;
+            _fitted = true;
 
+        }
+
+
+        tensor1D<float> predict(tensor2D<float> X_new){
+            // NOT FITTED CASE 
+            if(!(_fitted)){
+                throw "Regression haven't fitted yet.";
+            }
+
+            // INVALID SHAPE, Check you're data thausand time before giving to my Algorithms :)
+            std::vector<size_t> new_shape = X_new.shape;
+
+            shapeValidator(fitted_shape, new_shape);
+
+            dot<float> calculate_dot(X_new, fitted_weights);
+            tensor1D<float> pred = calculate_dot.getOutput();
+            pred.add_val(fitted_bias); // y = M1X1 + M2X2 + ... + MnXn + bias
+
+            return pred;
         }
 
         
