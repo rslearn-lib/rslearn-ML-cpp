@@ -1,19 +1,16 @@
 # CHANGELOGS
 
 ## Feat
-PR - feat/linear_regression_basic
+PR - feat/linear_regression_midway
 
-* Substact Tensors
-* Add values to tensor's each value (scaler only)
-* Subtract values to tensor's each value (also scaler only)
-* Basic Training loop for Multi-LinearRegression
-* Supported Features for LinearRegression
+* Completed & Optimized fit Loop
+* predict methord
 
 ## Source Code
 
-* `include/rslearn/assets/numpy/*`
+* `include/rslearn/base/_base.cpp`
 * `include/rslearn/linear_model/linear_regression.hpp`
 
 ## How to Use
 
-* `/learn` is paused currently 'cause of daily something update
+* `/learn` is paused currently 'cause of daily something update, will be open after `linear_model` & `preprocessing/scalers`
